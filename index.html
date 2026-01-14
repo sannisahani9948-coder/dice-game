@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Fun Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #111;
+      color: white;
+      padding-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      width: 120px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎲 Dice Game</h1>
+
+  <h2>Coins: <span id="coins">1000</span></h2>
+
+  <input type="number" id="bet" placeholder="Bet coins">
+
+  <br><br>
+
+  <button onclick="playGame()">ROLL DICE</button>
+
+  <p id="result"></p>
+
+  <hr>
+
+  <p style="font-size:12px;">
+    This game is for entertainment only.<br>
+    All coins are virtual. No real money withdrawal.<br>
+    18+ only.
+  </p>
+
+  <script>
+    let coins = localStorage.getItem("coins")
+  ? Number(localStorage.getItem("coins"))
+  : 1000;
+
+document.getElementById("coins").innerText = coins;
+
+    function playGame() {
+      let bet = Number(document.getElementById("bet").value);
+
+      if (bet <= 0 || bet > coins) {
+        alert("Invalid bet amount");
+        return;
+      }
+
+      let dice = Math.floor(Math.random() * 6) + 1;
+
+      if (dice >= 4) {
+        coins += bet;
+        document.getElementById("result").innerText =
+          "You WIN 🎉 Dice: " + dice;
+      } else {
+        coins -= bet;
+        document.getElementById("result").innerText =
+          "You LOSE 😢 Dice: " + dice;
+      }
+
+      document.getElementById("coins").innerText = coins;
+    localStorage.setItem("coins", coins);
+} 
+</script>
+  </body>
+</html>
+
+
